@@ -276,7 +276,7 @@ public class MainFragment extends Fragment {
     }
 
     private void playInstrument(final double pitch, final double roll, final double yaw) {
-        // these if statements play sound if head reaches certain positions
+        // these if statements play sound if head reaches certain positions llll
         if (pitch <= centerP - 6 && !isDownPlayed) {
             isDownPlayed = true;
             mDirectionView.setText("Down");
