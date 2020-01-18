@@ -65,11 +65,13 @@ public class MainFragment extends Fragment {
     private boolean isUpPlayed;
     private boolean isDownPlayed;
 
+    public ChooserFragment cfrag;
+
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        soundModel = new Model(getContext(), R.raw.axel_f, R.raw.axel_f, R.raw.axel_f, R.raw.axel_f);
+        soundModel = new Model(getContext(), R.raw.snare_acoustic, R.raw.kick_acoustic, R.raw.hat_acoustic, R.raw.cymbal_acoustic);
     }
 
     @Nullable
@@ -89,6 +91,9 @@ public class MainFragment extends Fragment {
 
         final AppCompatImageButton calibrateButton = view.findViewById(R.id.calibrateBtn);
         calibrateButton.setOnClickListener(b -> onCalibrateClicked());
+
+        final AppCompatImageButton connectButton = view.findViewById(R.id.connectBtn);
+        connectButton.setOnClickListener(b -> onConnectClicked());
     }
 
     @Override
@@ -319,5 +324,9 @@ public class MainFragment extends Fragment {
 
     private void onCalibrateClicked() {
         mViewModel.resetInitialReading();
+    }
+
+    private void onConnectClicked() {
+        cfrag.onSearchClicked();
     }
 }
