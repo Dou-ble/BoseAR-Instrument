@@ -164,4 +164,13 @@
         app:layout_constraintEnd_toEndOf="@+id/scene_view"
         app:layout_constraintTop_toTopOf="@+id/scene_view" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click to play sound"
+        app:layout_constraintBottom_toTopOf="@id/accuracyText"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="play"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

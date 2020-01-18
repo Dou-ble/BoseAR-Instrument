@@ -44,10 +44,17 @@ public class Model {
         this.right = new Soundbox(rightId);
         this.context = context;
 
+        System.out.println("Up's sound is: " + up.getSound());
+
         upPlayer = MediaPlayer.create(context, up.getSound());
         downPlayer = MediaPlayer.create(context, down.getSound());
         leftPlayer = MediaPlayer.create(context, left.getSound());
         rightPlayer = MediaPlayer.create(context, right.getSound());
+
+        System.out.println(upPlayer);
+        System.out.println(leftPlayer);
+        System.out.println(downPlayer);
+        System.out.println(rightPlayer);
 
     }
 
