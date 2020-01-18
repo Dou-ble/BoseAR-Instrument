@@ -50,10 +50,16 @@ public class MainFragment extends Fragment {
     private SceneView mSceneView;
     private TextView mValuesView;
     private TextView mAccuracyView;
+    private TextView mDirectionView;
 
     private SensorViewModel mViewModel;
 
     private Node mProductNode;
+
+    private boolean isLeftPlayed;
+    private boolean isRightPlayed;
+    private boolean isUpPlayed;
+    private boolean isDownPlayed;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -74,6 +80,7 @@ public class MainFragment extends Fragment {
         mSceneView = view.findViewById(R.id.scene_view);
         mValuesView = view.findViewById(R.id.valuesText);
         mAccuracyView = view.findViewById(R.id.accuracyText);
+        mDirectionView = view.findViewById(R.id.directionText);
     }
 
     @Override
@@ -236,6 +243,8 @@ public class MainFragment extends Fragment {
             final double yaw = ARCoreSensorValueReader.yaw(quaternion) * (inverted ? -1 : 1);
 
             text = getString(R.string.values_format, formatAngle(pitch), formatAngle(roll), formatAngle(yaw));
+
+            playInstrument(formatAngleDouble(pitch), formatAngleDouble(roll), formatAngleDouble(yaw));
         } else {
             text = "";
         }
@@ -258,8 +267,53 @@ public class MainFragment extends Fragment {
         return String.format(Locale.US, "%.2f°", degrees);
     }
 
+    private double formatAngleDouble(final double radians) {
+        final double degrees = radians * 180 / Math.PI;
+        return degrees;
+    }
+
     private void readPrefs(@NonNull final SharedPreferences preferences) {
         mViewModel.correctedInitially(preferences.getBoolean(MainSettingsFragment.PREF_CORRECTED_INITIALLY, true));
         mViewModel.inverted(preferences.getBoolean(MainSettingsFragment.PREF_MIRROR, true));
+    }
+
+    private void playInstrument(final double pitch, final double roll, final double yaw) {
+        // these if statements play sound if head reaches certain positions
+        if (pitch <= -15 && !isDownPlayed) {
+            isDownPlayed = true;
+            mDirectionView.setText("Down");
+            //play sound and indicate on screen that down played
+        } else if (pitch >= 15 && !isUpPlayed) {
+            isUpPlayed = true;
+            mDirectionView.setText("Up");
+            //play up sound and indicate on screen
+        } else if (yaw <= -15 && !isLeftPlayed) {
+            isLeftPlayed = true;
+            mDirectionView.setText("Left");
+            //play left sound and indicate on screen
+        } else if (yaw >= 15 && !isRightPlayed) {
+            isRightPlayed = true;
+            mDirectionView.setText("Right");
+            // play right sound and indicate on screen
+        }
+
+        // these if statements reset soundboxes if head reaches certain positions
+        if (pitch >= -10 && isDownPlayed) {
+            isDownPlayed = false;
+            mDirectionView.setText("Center");
+            //indicate soundbox off on screen
+        } else if (pitch <= 10 && isUpPlayed) {
+            isUpPlayed = false;
+            mDirectionView.setText("Center");
+            //indicate soundbox off on screen
+        } else if (yaw >= -10 && isLeftPlayed) {
+            isLeftPlayed = false;
+            mDirectionView.setText("Center");
+            //indicate soundbox off on screen
+        } else if (yaw <= 10 && isRightPlayed) {
+            isRightPlayed = false;
+            mDirectionView.setText("Center");
+            //indicate soundbox off on screen
+        }
     }
 }

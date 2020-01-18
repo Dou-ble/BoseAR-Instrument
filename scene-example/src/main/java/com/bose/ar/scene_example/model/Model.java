@@ -44,18 +44,26 @@ public class Model {
         this.right = new Soundbox(rightId);
         this.context = context;
 
+        System.out.println("Up's sound is: " + up.getSound());
+
         upPlayer = MediaPlayer.create(context, up.getSound());
         downPlayer = MediaPlayer.create(context, down.getSound());
         leftPlayer = MediaPlayer.create(context, left.getSound());
         rightPlayer = MediaPlayer.create(context, right.getSound());
 
+        System.out.println(upPlayer);
+        System.out.println(leftPlayer);
+        System.out.println(downPlayer);
+        System.out.println(rightPlayer);
+
     }
 
     /**
-     * Plays a sound for a given soundbox.
+     * Plays a given soundbox's sound.
      * @param soundbox an int representing which soundbox should be played.
+     * @param volume a floating point value in [0.0, 1.0] that represents the volume of the sound to be played
      */
-    public void playSound(int soundbox) {
+    public void playSound(int soundbox, float volume) {
 
         switch(soundbox) {
 
@@ -71,6 +79,7 @@ public class Model {
 
                     }
 
+                    upPlayer.setVolume(volume, volume);
                     upPlayer.start();
 
                 } catch(Exception e) {
@@ -91,6 +100,7 @@ public class Model {
 
                     }
 
+                    downPlayer.setVolume(volume, volume);
                     downPlayer.start();
 
                 } catch(Exception e) {
@@ -111,6 +121,7 @@ public class Model {
 
                     }
 
+                    leftPlayer.setVolume(volume, volume);
                     leftPlayer.start();
 
                 } catch(Exception e) {
@@ -132,6 +143,7 @@ public class Model {
 
                     }
 
+                    rightPlayer.setVolume(volume, volume);
                     rightPlayer.start();
 
                 } catch(Exception e) {

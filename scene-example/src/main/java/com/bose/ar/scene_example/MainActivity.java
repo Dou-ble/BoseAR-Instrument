@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bose.ar.scene_example.model.Model;
 import com.bose.blecore.DeviceException;
 import com.bose.scene_example.R;
 import com.bose.wearable.BoseWearableException;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements ErrorDisplay {
     @Nullable
     private Snackbar mSnackBar;
 
+    Model m;
+
     public static Intent intentForDevice(@NonNull final Context context,
                                          @NonNull final String deviceAddress,
                                          @NonNull final SensorType sensorType) {
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements ErrorDisplay {
         final String deviceAddress = intent.getStringExtra(ARG_DEVICE_ADDRESS);
         final SensorType sensorType = (SensorType) intent.getSerializableExtra(ARG_SENSOR_TYPE);
         final boolean simulatedDevice = intent.getBooleanExtra(ARG_SIMULATED_DEVICE, false);
+        m = new Model(this, R.raw.axel_f, R.raw.axel_f, R.raw.axel_f, R.raw.axel_f);
 
         if (sensorType == null || deviceAddress == null && !simulatedDevice) {
             throw new IllegalArgumentException();
@@ -194,4 +198,12 @@ public class MainActivity extends AppCompatActivity implements ErrorDisplay {
 
         return true;
     }
+
+    public void play(View v) {
+
+
+        m.playSound(Model.UP, (float)1.0);
+
+    }
+
 }

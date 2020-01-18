@@ -13,30 +13,164 @@
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.bose.ar.scene_example.MainActivity"/>
+        app:layout_constraintVertical_bias="1.0"
+        tools:context="com.bose.ar.scene_example.MainActivity" />
 
     <TextView
         android:id="@+id/valuesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#C70000"
+        android:textColorHighlight="#B32323"
+        app:layout_constraintBottom_toTopOf="@+id/accuracyText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="P=-0.09 R=-0.27 Y=-1.84"/>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="P=-0.09 R=-0.27 Y=-1.84" />
+
+    <TextView
+        android:id="@+id/directionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#C70000"
+        android:textColorHighlight="#B32323"
+        app:layout_constraintBottom_toTopOf="@+id/valuesText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Center" />
 
     <TextView
         android:id="@+id/accuracyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/downBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Accuracy: 3.82" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/scene_view"
+        app:layout_constraintEnd_toEndOf="@+id/scene_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/logo" />
+
+    <ImageButton
+        android:id="@+id/tutorialBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/tutorial_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/upBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/up_btn"
+        app:layout_constraintEnd_toEndOf="@+id/scene_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/downBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/down_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/scene_view"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/calibrateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/calibrate_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/connectBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/connect_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/leftBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/left_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/rightBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/right_btn"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/right_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Accuracy: 3.82"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/deviceTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="deviceTxt"
+        app:layout_constraintEnd_toEndOf="@+id/scene_view"
+        app:layout_constraintTop_toTopOf="@+id/scene_view" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click to play sound"
+        app:layout_constraintBottom_toTopOf="@id/accuracyText"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="play"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
