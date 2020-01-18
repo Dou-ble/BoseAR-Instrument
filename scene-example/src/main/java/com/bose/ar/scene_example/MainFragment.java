@@ -9,6 +9,7 @@ package com.bose.ar.scene_example;
 //
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,11 +25,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bose.ar.scene_example.model.Model;
+import com.bose.bosewearableui.DeviceConnectorActivity;
 import com.bose.scene_example.R;
 import com.bose.wearable.sensordata.QuaternionAccuracy;
 import com.bose.wearable.sensordata.SensorValue;
 import com.bose.wearable.sensordata.Vector;
 import com.bose.wearable.services.wearablesensor.ProductInfo;
+import com.bose.wearable.services.wearablesensor.SensorType;
 import com.bose.wearable.services.wearablesensor.WearableDeviceInformation;
 import com.google.ar.core.exceptions.CameraNotAvailableException;
 import com.google.ar.sceneform.Node;
@@ -101,7 +104,7 @@ public class MainFragment extends Fragment {
         calibrateButton.setOnClickListener(b -> onCalibrateClicked());
 
         final AppCompatImageButton connectButton = view.findViewById(R.id.connectBtn);
-        connectButton.setOnClickListener(b -> onConnectClicked());
+        connectButton.setOnClickListener(b -> onSearchClicked());
     }
 
     @Override
@@ -393,12 +396,14 @@ public class MainFragment extends Fragment {
         if (vel >= 1.0) { return (float) 1.0; }
         else if (vel <= 0.0) { return (float) 0.0; }
         else { return vel; }
+        ///sdfssgsgsds 
     }
     private void onCalibrateClicked() {
         mViewModel.resetInitialReading();
     }
 
-    private void onConnectClicked() {
-        cfrag.onSearchClicked();
+    private void onSearchClicked() {
+        final Intent intent = DeviceConnectorActivity.newIntent(requireContext(), 0,
+                SensorViewModel.sensorIntent(SensorType.ROTATION_VECTOR), SensorViewModel.gestureIntent());
     }
 }
