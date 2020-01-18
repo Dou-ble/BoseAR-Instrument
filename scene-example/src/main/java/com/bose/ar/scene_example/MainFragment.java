@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bose.ar.scene_example.model.Model;
 import com.bose.scene_example.R;
 import com.bose.wearable.sensordata.QuaternionAccuracy;
 import com.bose.wearable.sensordata.SensorValue;
@@ -36,6 +37,7 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
 
 import java.util.Locale;
+import java.lang.Math;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +45,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.preference.PreferenceManager;
+
 
 public class MainFragment extends Fragment {
     private static final String TAG = MainFragment.class.getSimpleName();
@@ -60,6 +63,9 @@ public class MainFragment extends Fragment {
     private boolean isRightPlayed;
     private boolean isUpPlayed;
     private boolean isDownPlayed;
+
+    private long startTime;
+    private Model soundModel;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -94,6 +100,8 @@ public class MainFragment extends Fragment {
                     onWearableDeviceInfo(wearableDeviceInfo);
                 }
             });
+
+        this.startTime = System.currentTimeMillis();
 
         mViewModel.sensorData()
                 .observe(this, this::updatePosition);
@@ -283,18 +291,26 @@ public class MainFragment extends Fragment {
             isDownPlayed = true;
             mDirectionView.setText("Down");
             //play sound and indicate on screen that down played
+            float vol = velocity(Math.abs(pitch));
+            soundModel.playSound(2, vol);
         } else if (pitch >= 15 && !isUpPlayed) {
             isUpPlayed = true;
             mDirectionView.setText("Up");
             //play up sound and indicate on screen
+            float vol = velocity(Math.abs(pitch));
+            soundModel.playSound(1, vol);
         } else if (yaw <= -15 && !isLeftPlayed) {
             isLeftPlayed = true;
             mDirectionView.setText("Left");
             //play left sound and indicate on screen
+            float vol = velocity(Math.abs(yaw));
+            soundModel.playSound(3, vol);
         } else if (yaw >= 15 && !isRightPlayed) {
             isRightPlayed = true;
             mDirectionView.setText("Right");
             // play right sound and indicate on screen
+            float vol = velocity(Math.abs(yaw));
+            soundModel.playSound(4, vol);
         }
 
         // these if statements reset soundboxes if head reaches certain positions
@@ -302,18 +318,30 @@ public class MainFragment extends Fragment {
             isDownPlayed = false;
             mDirectionView.setText("Center");
             //indicate soundbox off on screen
+            this.startTime = System.currentTimeMillis();
         } else if (pitch <= 10 && isUpPlayed) {
             isUpPlayed = false;
             mDirectionView.setText("Center");
             //indicate soundbox off on screen
+            this.startTime = System.currentTimeMillis();
         } else if (yaw >= -10 && isLeftPlayed) {
             isLeftPlayed = false;
             mDirectionView.setText("Center");
             //indicate soundbox off on screen
+            this.startTime = System.currentTimeMillis();
         } else if (yaw <= 10 && isRightPlayed) {
             isRightPlayed = false;
             mDirectionView.setText("Center");
             //indicate soundbox off on screen
+            this.startTime = System.currentTimeMillis();
         }
+    }
+
+    private float velocity(double distance) {
+        long endTime = System.currentTimeMillis();
+        long deltaTime = endTime - this.startTime;
+        this.startTime = endTime;
+        float vel = (float) (distance/deltaTime);
+        return (float) (1/(1+Math.exp(-1 * vel)));
     }
 }
