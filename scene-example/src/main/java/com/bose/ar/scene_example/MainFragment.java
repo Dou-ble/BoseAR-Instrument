@@ -18,7 +18,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bose.scene_example.R;
 import com.bose.wearable.sensordata.QuaternionAccuracy;
@@ -79,6 +82,29 @@ public class MainFragment extends Fragment {
         mValuesView = view.findViewById(R.id.valuesText);
         mAccuracyView = view.findViewById(R.id.accuracyText);
         mDirectionView = view.findViewById(R.id.directionText);
+
+        //adds listener for calibrate button - goes to promotion screen
+        ImageButton calibrateBtn = view.findViewById(R.id.calibrateBtn);
+        calibrateBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                System.out.println("Calibrate");
+                mViewModel.resetInitialReading();
+            }
+        });
+
+        /*
+        //adds listener for connect button - goes to promotion screen
+        ImageButton connectBtn = view.findViewById(R.id.connectBtn);
+        connectBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                System.out.println("Connect");
+
+                mViewModel.onSearchClicked();
+            }
+        }); */
+
+        
+
     }
 
     @Override
@@ -302,4 +328,6 @@ public class MainFragment extends Fragment {
             //indicate soundbox off on screen
         }
     }
+
+
 }

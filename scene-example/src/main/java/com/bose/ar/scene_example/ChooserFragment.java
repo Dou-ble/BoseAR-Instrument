@@ -103,7 +103,7 @@ public class ChooserFragment extends Fragment {
         }
     }
 
-    private void onSearchClicked() {
+    public void onSearchClicked() {
         final int autoConnectTimeout = mAutoConnectSwitch.isChecked() ? AUTO_CONNECT_TIMEOUT : 0;
         final Intent intent = DeviceConnectorActivity.newIntent(requireContext(), autoConnectTimeout,
             SensorViewModel.sensorIntent(selectedSensor()), SensorViewModel.gestureIntent());
