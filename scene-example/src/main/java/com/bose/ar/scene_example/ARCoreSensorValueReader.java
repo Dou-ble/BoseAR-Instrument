@@ -24,6 +24,9 @@ public class ARCoreSensorValueReader {
     private Quaternion mInvertedInitialReading;
     private boolean mInverted;
 
+    //Marcus
+    //private Quaternion accelerometerData;
+
     public boolean correctedInitially() {
         return mCorrectedInitially;
     }
@@ -75,6 +78,7 @@ public class ARCoreSensorValueReader {
         if (mInverted) {
             quaternion = quaternion.inverted();
         }
+
 
         return quaternion;
     }
@@ -131,4 +135,5 @@ public class ARCoreSensorValueReader {
             return -Math.asin(sinr);
         }
     }
+
 }

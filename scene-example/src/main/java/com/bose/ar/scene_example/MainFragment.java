@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.bose.scene_example.R;
 import com.bose.wearable.sensordata.QuaternionAccuracy;
+import com.bose.wearable.sensordata.SensorValue;
+import com.bose.wearable.sensordata.Vector;
 import com.bose.wearable.services.wearablesensor.ProductInfo;
 import com.bose.wearable.services.wearablesensor.WearableDeviceInformation;
 import com.google.ar.core.exceptions.CameraNotAvailableException;
@@ -87,7 +89,10 @@ public class MainFragment extends Fragment {
             });
 
         mViewModel.sensorData()
-            .observe(this, this::updatePosition);
+                .observe(this, this::updatePosition);
+
+        //mViewModel.accelerometerData()
+        //        .observe(this, this::onAccelerometerData);
 
         mViewModel.sensorAccuracy()
             .observe(this, this::updateAccuracy);
@@ -110,6 +115,15 @@ public class MainFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+//    private void onAccelerometerData(@Nullable SensorValue sensorValue) {
+//        //final Vector vector = sensorValue.vector();
+//        //System.out.println("x = " + vector.x() + ", y = " + vector.y() + ", z = " + vector.z());
+//        ARCoreSensorValueReader r = new ARCoreSensorValueReader();
+//        Vector3 v3 = r.vector(sensorValue);
+//        System.out.println(sensorValue.quaternion());
+//        System.out.println(v3);
+//    }
 
     private void showSettings() {
         final View view = getView();

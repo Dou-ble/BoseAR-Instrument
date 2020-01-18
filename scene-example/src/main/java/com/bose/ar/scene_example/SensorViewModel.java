@@ -32,6 +32,7 @@ import com.bose.wearable.sensordata.GestureIntent;
 import com.bose.wearable.sensordata.QuaternionAccuracy;
 import com.bose.wearable.sensordata.SensorIntent;
 import com.bose.wearable.sensordata.SensorValue;
+import com.bose.wearable.sensordata.Vector;
 import com.bose.wearable.services.wearablesensor.GestureConfiguration;
 import com.bose.wearable.services.wearablesensor.GestureType;
 import com.bose.wearable.services.wearablesensor.SamplePeriod;
@@ -71,6 +72,10 @@ public class SensorViewModel extends ViewModel {
     private final MutableLiveData<QuaternionAccuracy> mSensorAccuracy = new MutableLiveData<>();
     @NonNull
     private SensorType mSensorType = SensorType.ROTATION_VECTOR;
+
+    //Marcus
+    @NonNull
+    private final MutableLiveData<SensorValue> mAccelerometer = new MutableLiveData<>();
 
     public SensorViewModel() {
         mConnectionState.setValue(ConnectionState.IDLE);
@@ -151,6 +156,9 @@ public class SensorViewModel extends ViewModel {
     public LiveData<Quaternion> sensorData() {
         return mSensorData;
     }
+
+    //Marcus
+    public LiveData<SensorValue> accelerometerData() { return mAccelerometer; }
 
     public LiveData<QuaternionAccuracy> sensorAccuracy() {
         return mSensorAccuracy;
@@ -333,6 +341,13 @@ public class SensorViewModel extends ViewModel {
         if (accuracy != null) {
             mSensorAccuracy.setValue(accuracy);
         }
+
+        //Marcus
+//        final Vector v3 = sensorValue.vector();
+//        if (v3 != null) {
+//            mAccelerometer.setValue(sensorValue);
+//        }
+        //mAccelerometer.setValue(sensorValue);
     }
 
     private void onGestureData() {
@@ -343,6 +358,7 @@ public class SensorViewModel extends ViewModel {
         final SensorConfiguration sensorConf = wearableDevice.sensorConfiguration()
             .disableAll()
             .enableSensor(mSensorType, SAMPLE_PERIOD);
+            //.enableSensor(SensorType.ACCELEROMETER, SAMPLE_PERIOD);
 
         final CompletableFuture<?> enableSensorsFuture = wearableDevice.changeSensors(sensorConf);
 
@@ -404,6 +420,8 @@ public class SensorViewModel extends ViewModel {
                 .whenComplete((aVoid, throwable) -> {
                     mSensorData.setValue(null);
                     mSensorAccuracy.setValue(null);
+                    //Marcus
+                    mAccelerometer.setValue(null);
                 });
         } else {
             future = CompletableFuture.completedFuture(null);
