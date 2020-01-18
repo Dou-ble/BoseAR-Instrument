@@ -13,9 +13,11 @@
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.bose.ar.scene_example.MainActivity"/>
+        app:layout_constraintVertical_bias="0.0"
+        tools:context="com.bose.ar.scene_example.MainActivity" />
 
     <TextView
         android:id="@+id/valuesText"
@@ -29,6 +31,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="P=-0.09 R=-0.27 Y=-1.84" />
+
+    <TextView
+        android:id="@+id/directionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="660dp"
+        android:text="Center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#C70000"
+        android:textColorHighlight="#B32323"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Center" />
 
     <TextView
         android:id="@+id/accuracyText"
