@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bose.ar.scene_example.model.Model;
 import com.bose.scene_example.R;
 import com.bose.wearable.sensordata.QuaternionAccuracy;
 import com.bose.wearable.services.wearablesensor.ProductInfo;
@@ -56,6 +57,7 @@ public class MainFragment extends Fragment {
 
     private SensorViewModel mViewModel;
 
+    Model soundModel;
     private Node mProductNode;
 
     private boolean isLeftPlayed;
@@ -67,6 +69,7 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        soundModel = new Model(getContext(), R.raw.axel_f, R.raw.axel_f, R.raw.axel_f, R.raw.axel_f);
     }
 
     @Nullable
@@ -275,18 +278,22 @@ public class MainFragment extends Fragment {
         if (pitch <= -15 && !isDownPlayed) {
             isDownPlayed = true;
             mDirectionView.setText("Down");
+            soundModel.playSound(Model.DOWN, (float)1.0);
             //play sound and indicate on screen that down played
         } else if (pitch >= 15 && !isUpPlayed) {
             isUpPlayed = true;
             mDirectionView.setText("Up");
+            soundModel.playSound(Model.UP, (float)1.0);
             //play up sound and indicate on screen
         } else if (yaw <= -15 && !isLeftPlayed) {
             isLeftPlayed = true;
             mDirectionView.setText("Left");
+            soundModel.playSound(Model.LEFT, (float)1.0);
             //play left sound and indicate on screen
         } else if (yaw >= 15 && !isRightPlayed) {
             isRightPlayed = true;
             mDirectionView.setText("Right");
+            soundModel.playSound(Model.RIGHT, (float)1.0);
             // play right sound and indicate on screen
         }
 
