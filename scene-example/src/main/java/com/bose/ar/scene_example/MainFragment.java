@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.bose.ar.scene_example.model.Model;
 import com.bose.scene_example.R;
 import com.bose.wearable.sensordata.QuaternionAccuracy;
+import com.bose.wearable.sensordata.SensorValue;
+import com.bose.wearable.sensordata.Vector;
 import com.bose.wearable.services.wearablesensor.ProductInfo;
 import com.bose.wearable.services.wearablesensor.WearableDeviceInformation;
 import com.google.ar.core.exceptions.CameraNotAvailableException;
@@ -38,6 +40,7 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
 
 import java.util.Locale;
+import java.lang.Math;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +49,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.preference.PreferenceManager;
+
 
 public class MainFragment extends Fragment {
     private static final String TAG = MainFragment.class.getSimpleName();
@@ -70,6 +74,8 @@ public class MainFragment extends Fragment {
     int soundboxSide; //which soundbox side has been selected.
 
     public ChooserFragment cfrag;
+
+    private long startTime;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -155,8 +161,16 @@ public class MainFragment extends Fragment {
                 }
             });
 
+        this.startTime = System.currentTimeMillis();
+
         mViewModel.sensorData()
-            .observe(this, this::updatePosition);
+                .observe(this, this::updatePosition);
+
+        //mViewModel.accelerometerData()
+        //        .observe(this, this::onAccelerometerData);
+
+        //mViewModel.gestureData()
+          //      .observe(this, this::onCalibrateClicked);
 
         mViewModel.sensorAccuracy()
             .observe(this, this::updateAccuracy);
@@ -179,6 +193,15 @@ public class MainFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+//    private void onAccelerometerData(@Nullable SensorValue sensorValue) {
+//        //final Vector vector = sensorValue.vector();
+//        //System.out.println("x = " + vector.x() + ", y = " + vector.y() + ", z = " + vector.z());
+//        ARCoreSensorValueReader r = new ARCoreSensorValueReader();
+//        Vector3 v3 = r.vector(sensorValue);
+//        System.out.println(sensorValue.quaternion());
+//        System.out.println(v3);
+//    }
 
     private void showSettings() {
         final View view = getView();
@@ -330,23 +353,35 @@ public class MainFragment extends Fragment {
         if (pitch <= centerP - 4 && !isDownPlayed) {
             isDownPlayed = true;
             mDirectionView.setText("Down");
-            soundModel.playSound(Model.DOWN, (float)1.0);
+            //soundModel.playSound(Model.DOWN, (float)1.0);
             //play sound and indicate on screen that down played
+            float vol = velocity(Math.abs(pitch));
+            System.out.println(vol);
+            soundModel.playSound(Model.DOWN, vol);
         } else if (pitch >= centerP + 4 && !isUpPlayed) {
             isUpPlayed = true;
             mDirectionView.setText("Up");
-            soundModel.playSound(Model.UP, (float)1.0);
+            //soundModel.playSound(Model.UP, (float)1.0);
             //play up sound and indicate on screen
+            float vol = velocity(Math.abs(pitch));
+            System.out.println(vol);
+            soundModel.playSound(Model.UP, vol);
         } else if (yaw <= centerY - 6 && !isLeftPlayed) {
             isLeftPlayed = true;
             mDirectionView.setText("Left");
-            soundModel.playSound(Model.LEFT, (float)1.0);
+            //soundModel.playSound(Model.LEFT, (float)1.0);
             //play left sound and indicate on screen
+            float vol = velocity(Math.abs(yaw));
+            System.out.println(vol);
+            soundModel.playSound(Model.LEFT, vol);
         } else if (yaw >= centerY + 6 && !isRightPlayed) {
             isRightPlayed = true;
             mDirectionView.setText("Right");
-            soundModel.playSound(Model.RIGHT, (float)1.0);
+            //soundModel.playSound(Model.RIGHT, (float)1.0);
             // play right sound and indicate on screen
+            float vol = velocity(Math.abs(yaw));
+            System.out.println(vol);
+            soundModel.playSound(Model.RIGHT, vol);
         }
 
         // these if statements reset soundboxes if head reaches certain positions
@@ -359,6 +394,7 @@ public class MainFragment extends Fragment {
             //centerP = pitch;
             centerY = yaw;
             //indicate soundbox off on screen
+            this.startTime = System.currentTimeMillis();
         } else if (pitch <= centerP + 3 && isUpPlayed) {
             isUpPlayed = false;
             isDownPlayed = false;
@@ -368,6 +404,7 @@ public class MainFragment extends Fragment {
             //centerP = pitch;
             centerY = yaw;
             //indicate soundbox off on screen
+            this.startTime = System.currentTimeMillis();
         } else if (yaw >= centerY - 4 && isLeftPlayed) {
             isLeftPlayed = false;
             isDownPlayed = false;
@@ -377,6 +414,7 @@ public class MainFragment extends Fragment {
             centerP = pitch;
             //centerY = yaw;
             //indicate soundbox off on screen
+            this.startTime = System.currentTimeMillis();
         } else if (yaw <= centerY + 4 && isRightPlayed) {
             isRightPlayed = false;
             isDownPlayed = false;
@@ -384,11 +422,23 @@ public class MainFragment extends Fragment {
             isLeftPlayed = false;
             mDirectionView.setText("Center");
             //indicate soundbox off on screen
+            this.startTime = System.currentTimeMillis();
             centerP = pitch;
             //centerY = yaw;
         }
     }
 
+    private float velocity(double distance) {
+        long endTime = System.currentTimeMillis();
+        long deltaTime = (endTime - this.startTime);
+        //this.startTime = endTime;
+        float vel = (float) (distance / deltaTime);
+        vel = (float) (1 / (1 + Math.exp(-1 * vel)));
+        vel = (float) (((10.0 * vel) - 5.0) * 1.50);
+        if (vel >= 1.0) { return (float) 1.0; }
+        else if (vel <= 0.0) { return (float) 0.0; }
+        else { return vel; }
+    }
     private void onCalibrateClicked() {
         mViewModel.resetInitialReading();
     }

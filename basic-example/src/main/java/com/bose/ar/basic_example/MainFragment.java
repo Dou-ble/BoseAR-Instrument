@@ -190,6 +190,7 @@ public class MainFragment extends Fragment {
         mX.setText(formatValue(vector.x()));
         mY.setText(formatValue(vector.y()));
         mZ.setText(formatValue(vector.z()));
+
     }
 
     private void onRotationData(@NonNull final SensorValue sensorValue) {
