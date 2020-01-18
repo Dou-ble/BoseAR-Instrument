@@ -38,6 +38,7 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -80,7 +81,7 @@ public class MainFragment extends Fragment {
         mValuesView = view.findViewById(R.id.valuesText);
         mAccuracyView = view.findViewById(R.id.accuracyText);
         mDirectionView = view.findViewById(R.id.directionText);
-        final Button calibrateButton = view.findViewById(R.id.calibrateBtn);
+        final AppCompatImageButton calibrateButton = view.findViewById(R.id.calibrateBtn);
         calibrateButton.setOnClickListener(b -> onCalibrateClicked());
     }
 
