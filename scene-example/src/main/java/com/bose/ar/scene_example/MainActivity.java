@@ -207,35 +207,4 @@ public class MainActivity extends AppCompatActivity implements ErrorDisplay {
 
     }
 
-    /*public void openOverlay(View view) {
-
-        View soundSelector = findViewById(R.id.soundSelector);
-        soundSelector.setVisibility(View.VISIBLE);
-        soundboxSide = view.getId();
-
-    }
-
-    public void closeOverlay(View view) {
-
-        View soundSelector = findViewById(R.id.soundSelector);
-        soundSelector.setVisibility(View.GONE);
-
-    }
-
-    public void changeSound(View view) {
-
-        int clickedId = view.getId();
-
-        switch(clickedId) {
-
-            case R.id.ac_kick_button:
-
-                break;
-
-        }
-
-        closeOverlay(view);
-
-    }*/
-
 }

@@ -104,7 +104,27 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 View soundSelector = topLevelView.findViewById(R.id.soundSelector);
                 soundSelector.setVisibility(View.VISIBLE);
-                soundboxSide = view.getId();
+
+                switch(view.getId()) {
+
+                    case R.id.upBtn:
+                        soundboxSide = Model.UP;
+                        break;
+
+                    case R.id.downBtn:
+                        soundboxSide = Model.DOWN;
+                        break;
+
+                    case R.id.leftBtn:
+                        soundboxSide = Model.LEFT;
+                        break;
+
+                    case R.id.rightBtn:
+                        soundboxSide = Model.RIGHT;
+                        break;
+
+                }
+
             }
         };
 
@@ -116,11 +136,40 @@ public class MainFragment extends Fragment {
                 switch(clickedId) {
 
                     case R.id.ac_kick_button:
+                        soundModel.changeSound(soundboxSide, R.raw.kick_acoustic);
+                        break;
 
+                    case R.id.ac_snare_button:
+                        soundModel.changeSound(soundboxSide, R.raw.snare_acoustic);
+                        break;
+
+                    case R.id.ac_cymbal_button:
+                        soundModel.changeSound(soundboxSide, R.raw.cymbal_acoustic);
+                        break;
+
+                    case R.id.ac_hat_button:
+                        soundModel.changeSound(soundboxSide, R.raw.hat_acoustic);
+                        break;
+
+                    case R.id.el_kick_button:
+                        soundModel.changeSound(soundboxSide, R.raw.kick_electro);
+                        break;
+
+                    case R.id.el_snare_button:
+                        soundModel.changeSound(soundboxSide, R.raw.snare_electro);
+                        break;
+
+                    case R.id.el_hat_button:
+                        soundModel.changeSound(soundboxSide, R.raw.hat_electro);
+                        break;
+
+                    case R.id.el_cymbal_button:
+                        soundModel.changeSound(soundboxSide, R.raw.cymbal_electro);
                         break;
 
                 }
 
+                topLevelView.findViewById(R.id.close_overlay).callOnClick();
             }
         };
 
@@ -130,6 +179,15 @@ public class MainFragment extends Fragment {
         topLevelView.findViewById(R.id.downBtn).setOnClickListener(openOverlay);
         topLevelView.findViewById(R.id.leftBtn).setOnClickListener(openOverlay);
         topLevelView.findViewById(R.id.rightBtn).setOnClickListener(openOverlay);
+
+        topLevelView.findViewById(R.id.ac_kick_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.ac_snare_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.ac_cymbal_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.ac_hat_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.el_kick_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.el_snare_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.el_cymbal_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.el_hat_button).setOnClickListener(changeSound);
 
 
         return topLevelView;
