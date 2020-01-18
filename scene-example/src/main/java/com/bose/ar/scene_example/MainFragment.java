@@ -67,6 +67,8 @@ public class MainFragment extends Fragment {
     private double centerP = 0.0;
     private double centerY = 0.0;
 
+    public ChooserFragment cfrag;
+
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +93,9 @@ public class MainFragment extends Fragment {
 
         final AppCompatImageButton calibrateButton = view.findViewById(R.id.calibrateBtn);
         calibrateButton.setOnClickListener(b -> onCalibrateClicked());
+
+        final AppCompatImageButton connectButton = view.findViewById(R.id.connectBtn);
+        connectButton.setOnClickListener(b -> onConnectClicked());
     }
 
     @Override
@@ -341,5 +346,9 @@ public class MainFragment extends Fragment {
 
     private void onCalibrateClicked() {
         mViewModel.resetInitialReading();
+    }
+
+    private void onConnectClicked() {
+        cfrag.onSearchClicked();
     }
 }
