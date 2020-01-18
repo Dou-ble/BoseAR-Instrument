@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bose.scene_example.R;
@@ -37,6 +38,7 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -79,6 +81,8 @@ public class MainFragment extends Fragment {
         mValuesView = view.findViewById(R.id.valuesText);
         mAccuracyView = view.findViewById(R.id.accuracyText);
         mDirectionView = view.findViewById(R.id.directionText);
+        final AppCompatImageButton calibrateButton = view.findViewById(R.id.calibrateBtn);
+        calibrateButton.setOnClickListener(b -> onCalibrateClicked());
     }
 
     @Override
@@ -301,5 +305,9 @@ public class MainFragment extends Fragment {
             mDirectionView.setText("Center");
             //indicate soundbox off on screen
         }
+    }
+
+    private void onCalibrateClicked() {
+        mViewModel.resetInitialReading();
     }
 }
