@@ -49,7 +49,7 @@ import java.util.concurrent.CompletableFuture;
 public class SensorViewModel extends ViewModel {
     private static final String TAG = SensorViewModel.class.getSimpleName();
     private static final SamplePeriod SAMPLE_PERIOD = SamplePeriod._40_MS;
-    private static final GestureType GESTURE_TYPE = GestureType.INPUT;
+    private static final GestureType GESTURE_TYPE = GestureType.DOUBLE_TAP;
 
     @NonNull
     private final MutableLiveData<ConnectionState> mConnectionState = new MutableLiveData<>();
@@ -74,9 +74,9 @@ public class SensorViewModel extends ViewModel {
     private SensorType mSensorType = SensorType.ROTATION_VECTOR;
 
     //Marcus
-    @NonNull
-    private final MutableLiveData<SensorValue> mAccelerometer = new MutableLiveData<>();
-
+//    @NonNull
+//    private final MutableLiveData<SensorValue> mAccelerometer = new MutableLiveData<>();
+    private final MutableLiveData<GestureData> mGestureData = new MutableLiveData<>();
     public SensorViewModel() {
         mConnectionState.setValue(ConnectionState.IDLE);
 
@@ -158,7 +158,8 @@ public class SensorViewModel extends ViewModel {
     }
 
     //Marcus
-    public LiveData<SensorValue> accelerometerData() { return mAccelerometer; }
+    //public LiveData<SensorValue> accelerometerData() { return mAccelerometer; }
+    public LiveData<GestureData> gestureData() { return mGestureData; }
 
     public LiveData<QuaternionAccuracy> sensorAccuracy() {
         return mSensorAccuracy;
@@ -241,6 +242,8 @@ public class SensorViewModel extends ViewModel {
                 if (GESTURE_TYPE.equals(gestureData.type())) {
                     onGestureData();
                 }
+                mGestureData.setValue(gestureData);
+                System.out.println(gestureData);
             }
         };
 
@@ -358,7 +361,6 @@ public class SensorViewModel extends ViewModel {
         final SensorConfiguration sensorConf = wearableDevice.sensorConfiguration()
             .disableAll()
             .enableSensor(mSensorType, SAMPLE_PERIOD);
-            //.enableSensor(SensorType.ACCELEROMETER, SAMPLE_PERIOD);
 
         final CompletableFuture<?> enableSensorsFuture = wearableDevice.changeSensors(sensorConf);
 
@@ -421,7 +423,7 @@ public class SensorViewModel extends ViewModel {
                     mSensorData.setValue(null);
                     mSensorAccuracy.setValue(null);
                     //Marcus
-                    mAccelerometer.setValue(null);
+                    //mAccelerometer.setValue(null);
                 });
         } else {
             future = CompletableFuture.completedFuture(null);

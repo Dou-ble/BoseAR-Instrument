@@ -124,6 +124,9 @@ public class MainFragment extends Fragment {
         //mViewModel.accelerometerData()
         //        .observe(this, this::onAccelerometerData);
 
+        //mViewModel.gestureData()
+          //      .observe(this, this::onCalibrateClicked);
+
         mViewModel.sensorAccuracy()
             .observe(this, this::updateAccuracy);
 
@@ -301,8 +304,8 @@ public class MainFragment extends Fragment {
     }
 
     private void playInstrument(final double pitch, final double roll, final double yaw) {
-        // these if statements play sound if head reaches certain positions
-        if (pitch <= centerP - 6 && !isDownPlayed) {
+        // these if statements play sound if head reaches certain positions llll
+        if (pitch <= centerP - 4 && !isDownPlayed) {
             isDownPlayed = true;
             mDirectionView.setText("Down");
             //soundModel.playSound(Model.DOWN, (float)1.0);
@@ -310,7 +313,7 @@ public class MainFragment extends Fragment {
             float vol = velocity(Math.abs(pitch));
             System.out.println(vol);
             soundModel.playSound(Model.DOWN, vol);
-        } else if (pitch >= centerP + 6 && !isUpPlayed) {
+        } else if (pitch >= centerP + 4 && !isUpPlayed) {
             isUpPlayed = true;
             mDirectionView.setText("Up");
             //soundModel.playSound(Model.UP, (float)1.0);
@@ -337,23 +340,23 @@ public class MainFragment extends Fragment {
         }
 
         // these if statements reset soundboxes if head reaches certain positions
-        if (pitch >= centerP - 4 && isDownPlayed) {
+        if (pitch >= centerP - 3 && isDownPlayed) {
             isDownPlayed = false;
             isUpPlayed = false;
             isLeftPlayed = false;
             isRightPlayed = false;
             mDirectionView.setText("Center");
-            centerP = pitch;
+            //centerP = pitch;
             centerY = yaw;
             //indicate soundbox off on screen
             this.startTime = System.currentTimeMillis();
-        } else if (pitch <= centerP + 4 && isUpPlayed) {
+        } else if (pitch <= centerP + 3 && isUpPlayed) {
             isUpPlayed = false;
             isDownPlayed = false;
             isLeftPlayed = false;
             isRightPlayed = false;
             mDirectionView.setText("Center");
-            centerP = pitch;
+            //centerP = pitch;
             centerY = yaw;
             //indicate soundbox off on screen
             this.startTime = System.currentTimeMillis();
@@ -364,7 +367,7 @@ public class MainFragment extends Fragment {
             isRightPlayed = false;
             mDirectionView.setText("Center");
             centerP = pitch;
-            centerY = yaw;
+            //centerY = yaw;
             //indicate soundbox off on screen
             this.startTime = System.currentTimeMillis();
         } else if (yaw <= centerY + 4 && isRightPlayed) {
@@ -376,7 +379,7 @@ public class MainFragment extends Fragment {
             //indicate soundbox off on screen
             this.startTime = System.currentTimeMillis();
             centerP = pitch;
-            centerY = yaw;
+            //centerY = yaw;
         }
     }
 
@@ -393,7 +396,6 @@ public class MainFragment extends Fragment {
     }
     private void onCalibrateClicked() {
         mViewModel.resetInitialReading();
-
     }
 
     private void onConnectClicked() {
