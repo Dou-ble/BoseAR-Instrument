@@ -69,7 +69,7 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        soundModel = new Model(getContext(), R.raw.axel_f, R.raw.axel_f, R.raw.axel_f, R.raw.axel_f);
+        soundModel = new Model(getContext(), R.raw.snare_acoustic, R.raw.kick_acoustic, R.raw.hat_acoustic, R.raw.cymbal_acoustic);
     }
 
     @Nullable

@@ -36,7 +36,7 @@
         android:id="@+id/directionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="200dp"
         android:text="Center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#C70000"
@@ -163,14 +163,5 @@
         android:text="deviceTxt"
         app:layout_constraintEnd_toEndOf="@+id/scene_view"
         app:layout_constraintTop_toTopOf="@+id/scene_view" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Click to play sound"
-        app:layout_constraintBottom_toTopOf="@id/accuracyText"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="play"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
