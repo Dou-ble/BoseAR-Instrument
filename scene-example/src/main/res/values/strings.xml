@@ -36,4 +36,7 @@
     <string name="scan_error_feature_unsupported">Feature not supported</string>
     <string name="scan_error_application_registration_failed">Application registration failed</string>
     <string name="scan_error_unknown">Unknown error</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

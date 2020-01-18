@@ -32,6 +32,7 @@ import com.bose.wearable.sensordata.GestureIntent;
 import com.bose.wearable.sensordata.QuaternionAccuracy;
 import com.bose.wearable.sensordata.SensorIntent;
 import com.bose.wearable.sensordata.SensorValue;
+import com.bose.wearable.sensordata.Vector;
 import com.bose.wearable.services.wearablesensor.GestureConfiguration;
 import com.bose.wearable.services.wearablesensor.GestureType;
 import com.bose.wearable.services.wearablesensor.SamplePeriod;
@@ -48,7 +49,7 @@ import java.util.concurrent.CompletableFuture;
 public class SensorViewModel extends ViewModel {
     private static final String TAG = SensorViewModel.class.getSimpleName();
     private static final SamplePeriod SAMPLE_PERIOD = SamplePeriod._40_MS;
-    private static final GestureType GESTURE_TYPE = GestureType.INPUT;
+    private static final GestureType GESTURE_TYPE = GestureType.DOUBLE_TAP;
 
     @NonNull
     private final MutableLiveData<ConnectionState> mConnectionState = new MutableLiveData<>();
@@ -72,6 +73,10 @@ public class SensorViewModel extends ViewModel {
     @NonNull
     private SensorType mSensorType = SensorType.ROTATION_VECTOR;
 
+    //Marcus
+//    @NonNull
+//    private final MutableLiveData<SensorValue> mAccelerometer = new MutableLiveData<>();
+    private final MutableLiveData<GestureData> mGestureData = new MutableLiveData<>();
     public SensorViewModel() {
         mConnectionState.setValue(ConnectionState.IDLE);
 
@@ -151,6 +156,10 @@ public class SensorViewModel extends ViewModel {
     public LiveData<Quaternion> sensorData() {
         return mSensorData;
     }
+
+    //Marcus
+    //public LiveData<SensorValue> accelerometerData() { return mAccelerometer; }
+    public LiveData<GestureData> gestureData() { return mGestureData; }
 
     public LiveData<QuaternionAccuracy> sensorAccuracy() {
         return mSensorAccuracy;
@@ -233,6 +242,8 @@ public class SensorViewModel extends ViewModel {
                 if (GESTURE_TYPE.equals(gestureData.type())) {
                     onGestureData();
                 }
+                mGestureData.setValue(gestureData);
+                System.out.println(gestureData);
             }
         };
 
@@ -333,6 +344,13 @@ public class SensorViewModel extends ViewModel {
         if (accuracy != null) {
             mSensorAccuracy.setValue(accuracy);
         }
+
+        //Marcus
+//        final Vector v3 = sensorValue.vector();
+//        if (v3 != null) {
+//            mAccelerometer.setValue(sensorValue);
+//        }
+        //mAccelerometer.setValue(sensorValue);
     }
 
     private void onGestureData() {
@@ -404,6 +422,8 @@ public class SensorViewModel extends ViewModel {
                 .whenComplete((aVoid, throwable) -> {
                     mSensorData.setValue(null);
                     mSensorAccuracy.setValue(null);
+                    //Marcus
+                    //mAccelerometer.setValue(null);
                 });
         } else {
             future = CompletableFuture.completedFuture(null);
