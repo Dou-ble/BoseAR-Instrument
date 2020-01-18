@@ -18,7 +18,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bose.ar.scene_example.model.Model;
 import com.bose.scene_example.R;
@@ -41,6 +44,7 @@ import java.lang.Math;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -57,6 +61,7 @@ public class MainFragment extends Fragment {
 
     private SensorViewModel mViewModel;
 
+    Model soundModel;
     private Node mProductNode;
 
     private boolean isLeftPlayed;
@@ -65,12 +70,12 @@ public class MainFragment extends Fragment {
     private boolean isDownPlayed;
 
     private long startTime;
-    private Model soundModel;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        soundModel = new Model(getContext(), R.raw.snare_acoustic, R.raw.kick_acoustic, R.raw.hat_acoustic, R.raw.cymbal_acoustic);
     }
 
     @Nullable
@@ -87,6 +92,9 @@ public class MainFragment extends Fragment {
         mValuesView = view.findViewById(R.id.valuesText);
         mAccuracyView = view.findViewById(R.id.accuracyText);
         mDirectionView = view.findViewById(R.id.directionText);
+
+        final AppCompatImageButton calibrateButton = view.findViewById(R.id.calibrateBtn);
+        calibrateButton.setOnClickListener(b -> onCalibrateClicked());
     }
 
     @Override
@@ -290,27 +298,35 @@ public class MainFragment extends Fragment {
         if (pitch <= -15 && !isDownPlayed) {
             isDownPlayed = true;
             mDirectionView.setText("Down");
+            //soundModel.playSound(Model.DOWN, (float)1.0);
             //play sound and indicate on screen that down played
             float vol = velocity(Math.abs(pitch));
-            soundModel.playSound(2, vol);
+            System.out.println(vol);
+            soundModel.playSound(Model.DOWN, vol);
         } else if (pitch >= 15 && !isUpPlayed) {
             isUpPlayed = true;
             mDirectionView.setText("Up");
+            //soundModel.playSound(Model.UP, (float)1.0);
             //play up sound and indicate on screen
             float vol = velocity(Math.abs(pitch));
-            soundModel.playSound(1, vol);
+            System.out.println(vol);
+            soundModel.playSound(Model.UP, vol);
         } else if (yaw <= -15 && !isLeftPlayed) {
             isLeftPlayed = true;
             mDirectionView.setText("Left");
+            //soundModel.playSound(Model.LEFT, (float)1.0);
             //play left sound and indicate on screen
             float vol = velocity(Math.abs(yaw));
-            soundModel.playSound(3, vol);
+            System.out.println(vol);
+            soundModel.playSound(Model.LEFT, vol);
         } else if (yaw >= 15 && !isRightPlayed) {
             isRightPlayed = true;
             mDirectionView.setText("Right");
+            //soundModel.playSound(Model.RIGHT, (float)1.0);
             // play right sound and indicate on screen
             float vol = velocity(Math.abs(yaw));
-            soundModel.playSound(4, vol);
+            System.out.println(vol);
+            soundModel.playSound(Model.RIGHT, vol);
         }
 
         // these if statements reset soundboxes if head reaches certain positions
@@ -339,9 +355,14 @@ public class MainFragment extends Fragment {
 
     private float velocity(double distance) {
         long endTime = System.currentTimeMillis();
-        long deltaTime = endTime - this.startTime;
+        long deltaTime = (endTime - this.startTime);
         this.startTime = endTime;
-        float vel = (float) (distance/deltaTime);
-        return (float) (1/(1+Math.exp(-1 * vel)));
+        float vel = (float) (distance / deltaTime);
+        vel = (float) (1 / (1 + Math.exp(-1 * vel)));
+        return (float) (((10.0 * vel) - 5.0) * 1.50);
+    }
+    private void onCalibrateClicked() {
+        mViewModel.resetInitialReading();
+
     }
 }
