@@ -2,7 +2,6 @@ package com.bose.ar.scene_example.model;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
 
 public class Model {
 
@@ -11,17 +10,10 @@ public class Model {
     private Soundbox left;
     private Soundbox right;
 
-    //private MediaPlayer upPlayer;
-    //private MediaPlayer downPlayer;
-    //private MediaPlayer leftPlayer;
-    //private MediaPlayer rightPlayer;
-
-    private int upSoundId;
-    private int downSoundId;
-    private int leftSoundId;
-    private int rightSoundId;
-
-    SoundPool soundPlayer;
+    private MediaPlayer upPlayer;
+    private MediaPlayer downPlayer;
+    private MediaPlayer leftPlayer;
+    private MediaPlayer rightPlayer;
 
     private Context context;
 
@@ -52,22 +44,17 @@ public class Model {
         this.right = new Soundbox(rightId);
         this.context = context;
 
-        //System.out.println("Up's sound is: " + up.getSound());
+        System.out.println("Up's sound is: " + up.getSound());
 
-        //upPlayer = MediaPlayer.create(context, up.getSound());
-        //downPlayer = MediaPlayer.create(context, down.getSound());
-        //leftPlayer = MediaPlayer.create(context, left.getSound());
-        //rightPlayer = MediaPlayer.create(context, right.getSound());
+        upPlayer = MediaPlayer.create(context, up.getSound());
+        downPlayer = MediaPlayer.create(context, down.getSound());
+        leftPlayer = MediaPlayer.create(context, left.getSound());
+        rightPlayer = MediaPlayer.create(context, right.getSound());
 
-        //build sound player.
-        SoundPool.Builder builder = new SoundPool.Builder();
-        builder = builder.setMaxStreams(10);
-        soundPlayer = builder.build();
-
-        upSoundId = soundPlayer.load(context, up.getSound(), 1);
-        downSoundId = soundPlayer.load(context, down.getSound(), 1);
-        leftSoundId = soundPlayer.load(context, left.getSound(), 1);
-        rightSoundId = soundPlayer.load(context, right.getSound(), 1);
+        System.out.println(upPlayer);
+        System.out.println(leftPlayer);
+        System.out.println(downPlayer);
+        System.out.println(rightPlayer);
 
     }
 
@@ -82,24 +69,86 @@ public class Model {
 
             case Model.UP:
 
-                soundPlayer.play(upSoundId, volume, volume, 0, 0, (float)1.0);
+                try {
+
+                    if(upPlayer.isPlaying()) {
+
+                        upPlayer.stop();
+                        upPlayer.release();
+                        upPlayer = MediaPlayer.create(context, up.getSound());
+
+                    }
+
+                    upPlayer.setVolume(volume, volume);
+                    upPlayer.start();
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
 
                 break;
 
             case Model.DOWN:
 
-                soundPlayer.play(downSoundId, volume, volume, 0, 0, (float)1.0);
+                try {
+
+                    if(downPlayer.isPlaying()) {
+
+                        downPlayer.stop();
+                        downPlayer.release();
+                        downPlayer = MediaPlayer.create(context, down.getSound());
+
+                    }
+
+                    downPlayer.setVolume(volume, volume);
+                    downPlayer.start();
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
 
                 break;
 
             case Model.LEFT:
 
-                soundPlayer.play(leftSoundId, volume, volume, 0, 0, (float)1.0);
+                try {
+
+                    if(leftPlayer.isPlaying()) {
+
+                        leftPlayer.stop();
+                        leftPlayer.release();
+                        leftPlayer = MediaPlayer.create(context, left.getSound());
+
+                    }
+
+                    leftPlayer.setVolume(volume, volume);
+                    leftPlayer.start();
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                break;
 
 
             case Model.RIGHT:
 
-                soundPlayer.play(rightSoundId, volume, volume, 0, 0, (float)1.0);
+                try {
+
+                    if(rightPlayer.isPlaying()) {
+
+                        rightPlayer.stop();
+                        rightPlayer.release();
+                        rightPlayer = MediaPlayer.create(context, right.getSound());
+
+                    }
+
+                    rightPlayer.setVolume(volume, volume);
+                    rightPlayer.start();
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
 
                 break;
 
@@ -122,31 +171,22 @@ public class Model {
 
             case Model.UP:
                 up.setSound(newSound);
-
-                soundPlayer.unload(upSoundId);
-                upSoundId = soundPlayer.load(context, up.getSound(), 1);
-
+                upPlayer = MediaPlayer.create(context, up.getSound());
                 break;
 
             case Model.DOWN:
                 down.setSound(newSound);
-
-                soundPlayer.unload(downSoundId);
-                downSoundId = soundPlayer.load(context, down.getSound(), 1);
+                downPlayer = MediaPlayer.create(context, down.getSound());
                 break;
 
             case Model.LEFT:
                 left.setSound(newSound);
-
-                soundPlayer.unload(leftSoundId);
-                leftSoundId = soundPlayer.load(context, left.getSound(), 1);
+                leftPlayer = MediaPlayer.create(context, left.getSound());
                 break;
 
             case Model.RIGHT:
                 right.setSound(newSound);
-
-                soundPlayer.unload(rightSoundId);
-                rightSoundId = soundPlayer.load(context, right.getSound(), 1);
+                rightPlayer = MediaPlayer.create(context, right.getSound());
                 break;
 
             default:
