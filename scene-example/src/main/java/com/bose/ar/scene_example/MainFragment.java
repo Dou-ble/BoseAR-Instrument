@@ -74,6 +74,8 @@ public class MainFragment extends Fragment {
     private double centerP = 0.0;
     private double centerY = 0.0;
 
+    int soundboxSide; //which soundbox side has been selected.
+
     public ChooserFragment cfrag;
 
     private long startTime;
@@ -90,7 +92,108 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View topLevelView = inflater.inflate(R.layout.fragment_main, container, false);
+
+        View.OnClickListener closeOverlay = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View soundSelector = topLevelView.findViewById(R.id.soundSelector);
+                soundSelector.setVisibility(View.GONE);
+            }
+        };
+
+        View.OnClickListener openOverlay = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View soundSelector = topLevelView.findViewById(R.id.soundSelector);
+                soundSelector.setVisibility(View.VISIBLE);
+
+                switch(view.getId()) {
+
+                    case R.id.upBtn:
+                        soundboxSide = Model.UP;
+                        break;
+
+                    case R.id.downBtn:
+                        soundboxSide = Model.DOWN;
+                        break;
+
+                    case R.id.leftBtn:
+                        soundboxSide = Model.LEFT;
+                        break;
+
+                    case R.id.rightBtn:
+                        soundboxSide = Model.RIGHT;
+                        break;
+
+                }
+
+            }
+        };
+
+        View.OnClickListener changeSound = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int clickedId = view.getId();
+
+                switch(clickedId) {
+
+                    case R.id.ac_kick_button:
+                        soundModel.changeSound(soundboxSide, R.raw.kick_acoustic);
+                        break;
+
+                    case R.id.ac_snare_button:
+                        soundModel.changeSound(soundboxSide, R.raw.snare_acoustic);
+                        break;
+
+                    case R.id.ac_cymbal_button:
+                        soundModel.changeSound(soundboxSide, R.raw.cymbal_acoustic);
+                        break;
+
+                    case R.id.ac_hat_button:
+                        soundModel.changeSound(soundboxSide, R.raw.hat_acoustic);
+                        break;
+
+                    case R.id.el_kick_button:
+                        soundModel.changeSound(soundboxSide, R.raw.kick_electro);
+                        break;
+
+                    case R.id.el_snare_button:
+                        soundModel.changeSound(soundboxSide, R.raw.snare_electro);
+                        break;
+
+                    case R.id.el_hat_button:
+                        soundModel.changeSound(soundboxSide, R.raw.hat_electro);
+                        break;
+
+                    case R.id.el_cymbal_button:
+                        soundModel.changeSound(soundboxSide, R.raw.cymbal_electro);
+                        break;
+
+                }
+
+                topLevelView.findViewById(R.id.close_overlay).callOnClick();
+            }
+        };
+
+        topLevelView.findViewById(R.id.close_overlay).setOnClickListener(closeOverlay);
+
+        topLevelView.findViewById(R.id.upBtn).setOnClickListener(openOverlay);
+        topLevelView.findViewById(R.id.downBtn).setOnClickListener(openOverlay);
+        topLevelView.findViewById(R.id.leftBtn).setOnClickListener(openOverlay);
+        topLevelView.findViewById(R.id.rightBtn).setOnClickListener(openOverlay);
+
+        topLevelView.findViewById(R.id.ac_kick_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.ac_snare_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.ac_cymbal_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.ac_hat_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.el_kick_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.el_snare_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.el_cymbal_button).setOnClickListener(changeSound);
+        topLevelView.findViewById(R.id.el_hat_button).setOnClickListener(changeSound);
+
+
+        return topLevelView;
     }
 
     @Override

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements ErrorDisplay {
     private Snackbar mSnackBar;
 
     Model m;
+    int soundboxSide; //which soundbox side has been selected.
 
     public static Intent intentForDevice(@NonNull final Context context,
                                          @NonNull final String deviceAddress,
@@ -203,20 +204,6 @@ public class MainActivity extends AppCompatActivity implements ErrorDisplay {
 
 
         m.playSound(Model.UP, (float)1.0);
-
-    }
-
-    public void openOverlay(View view) {
-
-        View soundSelector = findViewById(R.id.soundSelector);
-        soundSelector.setVisibility(View.VISIBLE);
-
-    }
-
-    public void closeOverlay(View view) {
-
-        View soundSelector = findViewById(R.id.soundSelector);
-        soundSelector.setVisibility(View.GONE);
 
     }
 
