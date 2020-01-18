@@ -67,6 +67,8 @@ public class MainFragment extends Fragment {
     private double centerP = 0.0;
     private double centerY = 0.0;
 
+    int soundboxSide; //which soundbox side has been selected.
+
     public ChooserFragment cfrag;
 
     @Override
@@ -81,7 +83,50 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View topLevelView = inflater.inflate(R.layout.fragment_main, container, false);
+
+        View.OnClickListener closeOverlay = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View soundSelector = topLevelView.findViewById(R.id.soundSelector);
+                soundSelector.setVisibility(View.GONE);
+            }
+        };
+
+        View.OnClickListener openOverlay = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View soundSelector = topLevelView.findViewById(R.id.soundSelector);
+                soundSelector.setVisibility(View.VISIBLE);
+                soundboxSide = view.getId();
+            }
+        };
+
+        View.OnClickListener changeSound = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int clickedId = view.getId();
+
+                switch(clickedId) {
+
+                    case R.id.ac_kick_button:
+
+                        break;
+
+                }
+
+            }
+        };
+
+        topLevelView.findViewById(R.id.close_overlay).setOnClickListener(closeOverlay);
+
+        topLevelView.findViewById(R.id.upBtn).setOnClickListener(openOverlay);
+        topLevelView.findViewById(R.id.downBtn).setOnClickListener(openOverlay);
+        topLevelView.findViewById(R.id.leftBtn).setOnClickListener(openOverlay);
+        topLevelView.findViewById(R.id.rightBtn).setOnClickListener(openOverlay);
+
+
+        return topLevelView;
     }
 
     @Override
