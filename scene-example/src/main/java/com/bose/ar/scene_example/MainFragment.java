@@ -9,6 +9,7 @@ package com.bose.ar.scene_example;
 //
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,11 +24,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bose.ar.scene_example.completable.CompletableWearableDevice;
 import com.bose.ar.scene_example.model.Model;
+import com.bose.bosewearableui.DeviceConnectorActivity;
+import com.bose.bosewearableui.DeviceConnectorViewModel;
 import com.bose.scene_example.R;
 import com.bose.wearable.sensordata.QuaternionAccuracy;
+import com.bose.wearable.services.wearablesensor.DeviceStatus;
 import com.bose.wearable.services.wearablesensor.ProductInfo;
+import com.bose.wearable.services.wearablesensor.SensorType;
 import com.bose.wearable.services.wearablesensor.WearableDeviceInformation;
+import com.bose.wearable.wearabledevice.DeviceProperties;
 import com.google.ar.core.exceptions.CameraNotAvailableException;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.Scene;
@@ -54,6 +61,7 @@ public class MainFragment extends Fragment {
     private TextView mValuesView;
     private TextView mAccuracyView;
     private TextView mDirectionView;
+    private TextView mDeviceView;
 
     private SensorViewModel mViewModel;
 
@@ -65,7 +73,6 @@ public class MainFragment extends Fragment {
     private boolean isUpPlayed;
     private boolean isDownPlayed;
 
-    public ChooserFragment cfrag;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -88,12 +95,22 @@ public class MainFragment extends Fragment {
         mValuesView = view.findViewById(R.id.valuesText);
         mAccuracyView = view.findViewById(R.id.accuracyText);
         mDirectionView = view.findViewById(R.id.directionText);
+        mDeviceView = view.findViewById(R.id.deviceTxt);
 
+        String deviceName = DeviceProperties.EMPTY.productName();
+        if (deviceName != null) {
+            mDeviceView.setText(deviceName);
+            System.out.println(deviceName);
+            mDeviceView.setText("CONNECTED");
+
+        } else {
+            mDeviceView.setText("NO");
+        }
         final AppCompatImageButton calibrateButton = view.findViewById(R.id.calibrateBtn);
         calibrateButton.setOnClickListener(b -> onCalibrateClicked());
 
         final AppCompatImageButton connectButton = view.findViewById(R.id.connectBtn);
-        connectButton.setOnClickListener(b -> onConnectClicked());
+        connectButton.setOnClickListener(b -> onSearchClicked());
     }
 
     @Override
@@ -113,6 +130,7 @@ public class MainFragment extends Fragment {
 
         mViewModel.sensorAccuracy()
             .observe(this, this::updateAccuracy);
+
 
         readPrefs(PreferenceManager.getDefaultSharedPreferences(requireContext()));
     }
@@ -326,7 +344,18 @@ public class MainFragment extends Fragment {
         mViewModel.resetInitialReading();
     }
 
+    public void onSearchClicked() {
+        // this one
+        //final int autoConnectTimeout = mAutoConnectSwitch.isChecked() ? AUTO_CONNECT_TIMEOUT : 0;
+        final Intent intent = DeviceConnectorActivity.newIntent(requireContext(), 0,
+                SensorViewModel.sensorIntent(SensorType.ROTATION_VECTOR), SensorViewModel.gestureIntent());
+
+        startActivityForResult(intent, 1);
+    }
+    /*
     private void onConnectClicked() {
         cfrag.onSearchClicked();
     }
+    */
+
 }
