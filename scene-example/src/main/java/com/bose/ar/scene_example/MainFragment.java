@@ -456,7 +456,7 @@ public class MainFragment extends Fragment {
         } else if (yaw >= centerY + 6 && !isRightPlayed) {
             isRightPlayed = true;
             mDirectionView.setText("Right");
-            float vol = velocity(Math.abs(yaw));
+            float vol = velocity(Math.abs(yaw) ;
             soundModel.playSound(Model.RIGHT, vol);
             // play right sound and indicate on screen
         }
@@ -516,6 +516,8 @@ public class MainFragment extends Fragment {
         else if (vel <= 0.0) { return (float) 0.0; }
         else { return vel; }
     }
+
+
     private void onCalibrateClicked() {
         mViewModel.resetInitialReading();
         centerP = 0;
