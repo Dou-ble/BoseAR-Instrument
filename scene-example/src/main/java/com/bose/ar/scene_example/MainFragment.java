@@ -450,7 +450,6 @@ public class MainFragment extends Fragment {
             centerP = pitch;
             centerY = yaw;
             //indicate soundbox off on screen
-        } else if (pitch < centerP + 4 && isUpPlayed) {
             this.startTime = System.currentTimeMillis();
         } else if (pitch <= centerP + 3 && isUpPlayed) {
             isUpPlayed = false;
@@ -461,7 +460,6 @@ public class MainFragment extends Fragment {
             centerP = pitch;
             centerY = yaw;
             //indicate soundbox off on screen
-        } else if (yaw >= centerY - 2 && isLeftPlayed) {
             this.startTime = System.currentTimeMillis();
         } else if (yaw >= centerY - 4 && isLeftPlayed) {
             isLeftPlayed = false;
@@ -472,7 +470,6 @@ public class MainFragment extends Fragment {
             centerP = pitch;
             centerY = yaw;
             //indicate soundbox off on screen
-        } else if (yaw <= centerY + 2 && isRightPlayed) {
             this.startTime = System.currentTimeMillis();
         } else if (yaw <= centerY + 4 && isRightPlayed) {
             isRightPlayed = false;
@@ -484,6 +481,7 @@ public class MainFragment extends Fragment {
             this.startTime = System.currentTimeMillis();
             centerP = pitch;
             centerY = yaw;
+            this.startTime = System.currentTimeMillis();
         }
     }
 
@@ -503,6 +501,7 @@ public class MainFragment extends Fragment {
         mViewModel.resetInitialReading();
         centerP = 0;
         centerY = 0;
+        this.startTime = System.currentTimeMillis();
     }
 
     private void onSearchClicked() {
