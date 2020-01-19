@@ -206,6 +206,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 ConstraintLayout tutorialLayout = topLevelView.findViewById(R.id.tutorialLayout);
                 tutorialLayout.setVisibility(View.GONE);
+                enableButtons(topLevelView);
             }
         };
 
@@ -223,6 +224,7 @@ public class MainFragment extends Fragment {
                 ImageView tutorialImg = (ImageView) topLevelView.findViewById(R.id.tutorialImg);
 
                 tutorialLayout.setVisibility(View.VISIBLE);
+                disableButtons(topLevelView);
 
                 switch(tutorialStep) {
 
