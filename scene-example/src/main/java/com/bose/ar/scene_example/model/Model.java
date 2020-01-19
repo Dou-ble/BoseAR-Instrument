@@ -64,7 +64,9 @@ public class Model {
      * @param volume a floating point value in [0.0, 1.0] that represents the volume of the sound to be played
      */
     public void playSound(int soundbox, float volume) {
-
+        if (volume < 0.5) {
+            volume = 0.5f;
+        }
         switch(soundbox) {
 
             case Model.UP:

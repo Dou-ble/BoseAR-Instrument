@@ -106,6 +106,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 View soundSelector = topLevelView.findViewById(R.id.soundSelector);
                 soundSelector.setVisibility(View.GONE);
+                enableButtons(topLevelView);
             }
         };
 
@@ -134,7 +135,7 @@ public class MainFragment extends Fragment {
                         break;
 
                 }
-
+                disableButtons(topLevelView);
             }
         };
 
@@ -440,6 +441,7 @@ public class MainFragment extends Fragment {
         mViewModel.resetInitialReading();
         centerP = 0;
         centerY = 0;
+        this.startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -617,22 +619,26 @@ public class MainFragment extends Fragment {
         if (pitch <= centerP - 4 && !isDownPlayed) {
             isDownPlayed = true;
             mDirectionView.setText("Down");
-            soundModel.playSound(Model.DOWN, (float)1.0);
+            float vol = velocity(Math.abs(pitch));
+            soundModel.playSound(Model.DOWN, vol);
             //play sound and indicate on screen that down played
         } else if (pitch >= centerP + 4 && !isUpPlayed) {
             isUpPlayed = true;
             mDirectionView.setText("Up");
-            soundModel.playSound(Model.UP, (float)1.0);
+            float vol = velocity(Math.abs(pitch));
+            soundModel.playSound(Model.UP, vol);
             //play up sound and indicate on screen
         } else if (yaw <= centerY - 6 && !isLeftPlayed) {
             isLeftPlayed = true;
             mDirectionView.setText("Left");
-            soundModel.playSound(Model.LEFT, (float)1.0);
+            float vol = velocity(Math.abs(yaw));
+            soundModel.playSound(Model.LEFT, vol);
             //play left sound and indicate on screen
         } else if (yaw >= centerY + 6 && !isRightPlayed) {
             isRightPlayed = true;
             mDirectionView.setText("Right");
-            soundModel.playSound(Model.RIGHT, (float)1.0);
+            float vol = velocity(Math.abs(yaw)) ;
+            soundModel.playSound(Model.RIGHT, vol);
             // play right sound and indicate on screen
         }
 
@@ -674,7 +680,6 @@ public class MainFragment extends Fragment {
             isLeftPlayed = false;
             mDirectionView.setText("Center");
             //indicate soundbox off on screen
-            this.startTime = System.currentTimeMillis();
             centerP = pitch;
             centerY = yaw;
             this.startTime = System.currentTimeMillis();
@@ -691,8 +696,9 @@ public class MainFragment extends Fragment {
         if (vel >= 1.0) { return (float) 1.0; }
         else if (vel <= 0.0) { return (float) 0.0; }
         else { return vel; }
-        ///sdfssgsgsds
     }
+
+
     private void onCalibrateClicked() {
         mViewModel.resetInitialReading();
         centerP = 0;
@@ -705,5 +711,29 @@ public class MainFragment extends Fragment {
                 SensorViewModel.sensorIntent(SensorType.ROTATION_VECTOR), SensorViewModel.gestureIntent());
 
         startActivityForResult(intent, 1);
+    }
+
+    public void disableButtons(View view) {
+
+        view.findViewById(R.id.tutorialBtn).setEnabled(false);
+        view.findViewById(R.id.connectBtn).setEnabled(false);
+        view.findViewById(R.id.calibrateBtn).setEnabled(false);
+        view.findViewById(R.id.upBtn).setEnabled(false);
+        view.findViewById(R.id.downBtn).setEnabled(false);
+        view.findViewById(R.id.leftBtn).setEnabled(false);
+        view.findViewById(R.id.rightBtn).setEnabled(false);
+
+    }
+
+    public void enableButtons(View view) {
+
+        view.findViewById(R.id.tutorialBtn).setEnabled(true);
+        view.findViewById(R.id.connectBtn).setEnabled(true);
+        view.findViewById(R.id.calibrateBtn).setEnabled(true);
+        view.findViewById(R.id.upBtn).setEnabled(true);
+        view.findViewById(R.id.downBtn).setEnabled(true);
+        view.findViewById(R.id.leftBtn).setEnabled(true);
+        view.findViewById(R.id.rightBtn).setEnabled(true);
+
     }
 }
