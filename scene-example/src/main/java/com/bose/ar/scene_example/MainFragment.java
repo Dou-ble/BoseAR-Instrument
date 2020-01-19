@@ -508,5 +508,7 @@ public class MainFragment extends Fragment {
     private void onSearchClicked() {
         final Intent intent = DeviceConnectorActivity.newIntent(requireContext(), 0,
                 SensorViewModel.sensorIntent(SensorType.ROTATION_VECTOR), SensorViewModel.gestureIntent());
+
+        startActivityForResult(intent, 1);
     }
 }
