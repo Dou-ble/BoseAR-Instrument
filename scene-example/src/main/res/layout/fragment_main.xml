@@ -64,7 +64,7 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="150dp"
         app:layout_constraintBottom_toBottomOf="@+id/scene_view"
         app:layout_constraintEnd_toEndOf="@+id/scene_view"
         app:layout_constraintStart_toStartOf="parent"
@@ -265,17 +265,17 @@
             app:layout_constraintTop_toBottomOf="@+id/tutorialTxt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/soundSelector"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/soundSelector"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="#FBFBFB"
+        android:background="#F2FBFBFB"
         android:visibility="gone"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/select_title"
@@ -283,9 +283,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
             android:layout_marginTop="80dp"
-            android:textSize="35sp"
             android:text="SELECT SOUND"
             android:textColor="#000000"
+            android:textSize="35sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -306,30 +306,29 @@
             android:id="@+id/ac_kick_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/select_title"
-            app:layout_constraintStart_toStartOf="@id/select_title"
+            android:layout_marginTop="20dp"
+            android:text="Acoustic Kick"
             app:layout_constraintEnd_toEndOf="@id/ac_cymbal_button"
-            android:text="Acoustic Kick" />
+            app:layout_constraintStart_toStartOf="@id/select_title"
+            app:layout_constraintTop_toBottomOf="@id/select_title" />
 
         <Button
             android:id="@+id/ac_hat_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Acoustic Hi-hat"
-            app:layout_constraintStart_toStartOf="@id/ac_kick_button"
-            app:layout_constraintTop_toBottomOf="@id/ac_kick_button"
             app:layout_constraintEnd_toEndOf="@id/ac_cymbal_button"
-            />
+            app:layout_constraintStart_toStartOf="@id/ac_kick_button"
+            app:layout_constraintTop_toBottomOf="@id/ac_kick_button" />
 
         <Button
             android:id="@+id/ac_snare_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Acoustic Snare"
-            app:layout_constraintStart_toStartOf="@id/ac_hat_button"
-            app:layout_constraintTop_toBottomOf="@id/ac_hat_button"
             app:layout_constraintEnd_toEndOf="@id/ac_cymbal_button"
-            />
+            app:layout_constraintStart_toStartOf="@id/ac_hat_button"
+            app:layout_constraintTop_toBottomOf="@id/ac_hat_button" />
 
         <Button
             android:id="@+id/ac_cymbal_button"
@@ -337,39 +336,35 @@
             android:layout_height="wrap_content"
             android:text="Acoustic Cymbal"
             app:layout_constraintStart_toStartOf="@id/ac_snare_button"
-            app:layout_constraintTop_toBottomOf="@id/ac_snare_button"
-            />
+            app:layout_constraintTop_toBottomOf="@id/ac_snare_button" />
 
         <Button
             android:id="@+id/el_kick_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Electric Kick"
-            app:layout_constraintStart_toEndOf="@id/ac_kick_button"
-            app:layout_constraintTop_toTopOf="@id/ac_kick_button"
-            app:layout_constraintEnd_toEndOf="@id/el_cymbal_button"
             android:layout_marginLeft="80dp"
-            />
+            android:text="Electric Kick"
+            app:layout_constraintEnd_toEndOf="@id/el_cymbal_button"
+            app:layout_constraintStart_toEndOf="@id/ac_kick_button"
+            app:layout_constraintTop_toTopOf="@id/ac_kick_button" />
 
         <Button
             android:id="@+id/el_hat_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Electric Hi-hat"
-            app:layout_constraintStart_toStartOf="@id/el_kick_button"
-            app:layout_constraintTop_toTopOf="@id/ac_hat_button"
             app:layout_constraintEnd_toEndOf="@id/el_cymbal_button"
-            />
+            app:layout_constraintStart_toStartOf="@id/el_kick_button"
+            app:layout_constraintTop_toTopOf="@id/ac_hat_button" />
 
         <Button
             android:id="@+id/el_snare_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Electric Snare"
-            app:layout_constraintStart_toStartOf="@id/el_hat_button"
-            app:layout_constraintTop_toTopOf="@id/ac_snare_button"
             app:layout_constraintEnd_toEndOf="@id/el_cymbal_button"
-            />
+            app:layout_constraintStart_toStartOf="@id/el_hat_button"
+            app:layout_constraintTop_toTopOf="@id/ac_snare_button" />
 
         <Button
             android:id="@+id/el_cymbal_button"
@@ -377,8 +372,7 @@
             android:layout_height="wrap_content"
             android:text="Electric Cymbal"
             app:layout_constraintStart_toStartOf="@id/el_snare_button"
-            app:layout_constraintTop_toTopOf="@id/ac_cymbal_button"
-            />
+            app:layout_constraintTop_toTopOf="@id/ac_cymbal_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
