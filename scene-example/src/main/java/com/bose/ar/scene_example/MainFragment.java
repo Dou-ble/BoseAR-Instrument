@@ -67,14 +67,6 @@ public class MainFragment extends Fragment {
 
     // Tutorial Objects
     private int tutorialStep;
-    private ConstraintLayout tutorialLayout;
-    private ImageButton tutorialExitBtn;
-    private ImageButton rightArrowBtn;
-    private ImageButton leftArrowBtn;
-    private TextView tutorialTxt;
-    private TextView tutorialTitleTxt;
-    private TextView tutorialNumTxt;
-    private ImageView tutorialImg;
 
     private SensorViewModel mViewModel;
 
@@ -108,6 +100,7 @@ public class MainFragment extends Fragment {
                              @Nullable final Bundle savedInstanceState) {
         View topLevelView = inflater.inflate(R.layout.fragment_main, container, false);
 
+        // Sound Selector
         View.OnClickListener closeOverlay = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,6 +199,195 @@ public class MainFragment extends Fragment {
         topLevelView.findViewById(R.id.el_cymbal_button).setOnClickListener(changeSound);
         topLevelView.findViewById(R.id.el_hat_button).setOnClickListener(changeSound);
 
+        // Tutorial
+        View.OnClickListener closeTutorial = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ConstraintLayout tutorialLayout = topLevelView.findViewById(R.id.tutorialLayout);
+                tutorialLayout.setVisibility(View.GONE);
+            }
+        };
+
+        View.OnClickListener openTutorial = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ConstraintLayout tutorialLayout = topLevelView.findViewById(R.id.tutorialLayout);
+
+                ImageButton rightArrowBtn = (ImageButton) topLevelView.findViewById(R.id.rightarrowbtn);
+                ImageButton leftArrowBtn = (ImageButton) topLevelView.findViewById(R.id.leftarrowbtn);
+                TextView tutorialTxt = (TextView) topLevelView.findViewById(R.id.tutorialTxt);
+                TextView tutorialTitleTxt = (TextView) topLevelView.findViewById(R.id.tutorialTitleTxt);
+                TextView tutorialNumTxt = (TextView) topLevelView.findViewById(R.id.tutorialNumTxt);
+                ImageView tutorialImg = (ImageView) topLevelView.findViewById(R.id.tutorialImg);
+
+                tutorialLayout.setVisibility(View.VISIBLE);
+
+                switch(tutorialStep) {
+
+                    case 1:
+                        tutorialTitleTxt.setText("TUTORIAL // " + tutorialStep);
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial1));
+                        tutorialImg.setVisibility(View.GONE);
+                        break;
+
+                    case 2:
+                        tutorialTitleTxt.setText("TUTORIAL // " + tutorialStep);
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial2));
+                        tutorialImg.setVisibility(View.GONE);
+                        break;
+
+                    case 3:
+                        tutorialTitleTxt.setText("TUTORIAL // " + tutorialStep);
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial3));
+                        tutorialImg.setVisibility(View.VISIBLE);
+                        tutorialImg.setImageResource(R.drawable.instructions);
+                        break;
+
+                    case 4:
+                        tutorialTitleTxt.setText("TUTORIAL // " + tutorialStep);
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial4));
+                        tutorialImg.setVisibility(View.VISIBLE);
+                        tutorialImg.setImageResource(R.drawable.button_pic);
+                        break;
+
+                    case 5:
+                        tutorialTitleTxt.setText("SUPPORT // " + tutorialStep);
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial5));
+                        tutorialImg.setVisibility(View.GONE);
+                        break;
+
+                }
+
+                tutorialNumTxt.setText(Integer.toString(tutorialStep));
+
+            }
+
+        };
+
+        View.OnClickListener tutorialRight = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ImageButton rightArrowBtn = (ImageButton) topLevelView.findViewById(R.id.rightarrowbtn);
+                ImageButton leftArrowBtn = (ImageButton) topLevelView.findViewById(R.id.leftarrowbtn);
+                TextView tutorialTxt = (TextView) topLevelView.findViewById(R.id.tutorialTxt);
+                TextView tutorialTitleTxt = (TextView) topLevelView.findViewById(R.id.tutorialTitleTxt);
+                TextView tutorialNumTxt = (TextView) topLevelView.findViewById(R.id.tutorialNumTxt);
+                ImageView tutorialImg = (ImageView) topLevelView.findViewById(R.id.tutorialImg);
+
+
+                switch(tutorialStep) {
+
+                    case 1:
+
+                        tutorialTitleTxt.setText("TUTORIAL // 2");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial2));
+                        tutorialImg.setVisibility(View.GONE);
+                        tutorialStep++;
+                        break;
+
+                    case 2:
+                        tutorialTitleTxt.setText("TUTORIAL // 3");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial3));
+                        tutorialImg.setVisibility(View.VISIBLE);
+                        tutorialImg.setImageResource(R.drawable.instructions);
+                        tutorialStep++;
+                        break;
+
+                    case 3:
+                        tutorialTitleTxt.setText("TUTORIAL // 4");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial4));
+                        tutorialImg.setVisibility(View.VISIBLE);
+                        tutorialImg.setImageResource(R.drawable.button_pic);
+                        tutorialStep++;
+                        break;
+
+                    case 4:
+                        tutorialTitleTxt.setText("SUPPORT // 5");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial5));
+                        tutorialImg.setVisibility(View.GONE);
+                        tutorialStep++;
+                        break;
+
+                    case 5:
+                        tutorialTitleTxt.setText("TUTORIAL // 1");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial1));
+                        tutorialImg.setVisibility(View.GONE);
+                        tutorialStep = 1;
+                        break;
+
+                }
+
+                tutorialNumTxt.setText(Integer.toString(tutorialStep));
+
+            }
+
+        };
+
+        View.OnClickListener tutorialLeft = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ImageButton rightArrowBtn = (ImageButton) topLevelView.findViewById(R.id.rightarrowbtn);
+                ImageButton leftArrowBtn = (ImageButton) topLevelView.findViewById(R.id.leftarrowbtn);
+                TextView tutorialTxt = (TextView) topLevelView.findViewById(R.id.tutorialTxt);
+                TextView tutorialTitleTxt = (TextView) topLevelView.findViewById(R.id.tutorialTitleTxt);
+                TextView tutorialNumTxt = (TextView) topLevelView.findViewById(R.id.tutorialNumTxt);
+                ImageView tutorialImg = (ImageView) topLevelView.findViewById(R.id.tutorialImg);
+
+                switch(tutorialStep) {
+
+                    case 1:
+                        tutorialTitleTxt.setText("SUPPORT // 5");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial5));
+                        tutorialImg.setVisibility(View.GONE);
+                        tutorialStep=5;
+                        break;
+
+                    case 2:
+                        tutorialTitleTxt.setText("TUTORIAL // 1");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial1));
+                        tutorialImg.setVisibility(View.GONE);
+                        tutorialStep--;
+                        break;
+
+                    case 3:
+                        tutorialTitleTxt.setText("TUTORIAL // 2");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial2));
+                        tutorialImg.setVisibility(View.GONE);
+                        tutorialStep--;
+                        break;
+
+                    case 4:
+                        tutorialTitleTxt.setText("TUTORIAL // 3");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial3));
+                        tutorialImg.setVisibility(View.VISIBLE);
+                        tutorialImg.setImageResource(R.drawable.instructions);
+                        tutorialStep--;
+                        break;
+
+                    case 5:
+                        tutorialTitleTxt.setText("TUTORIAL // 4");
+                        tutorialTxt.setText(getResources().getString(R.string.tutorial4));
+                        tutorialImg.setVisibility(View.VISIBLE);
+                        tutorialImg.setImageResource(R.drawable.button_pic);
+                        tutorialStep--;
+                        break;
+
+                }
+
+                tutorialNumTxt.setText(Integer.toString(tutorialStep));
+
+            }
+
+        };
+
+        topLevelView.findViewById(R.id.tutorialExitBtn).setOnClickListener(closeTutorial);
+        topLevelView.findViewById(R.id.tutorialBtn).setOnClickListener(openTutorial);
+        topLevelView.findViewById(R.id.leftarrowbtn).setOnClickListener(tutorialLeft);
+        topLevelView.findViewById(R.id.rightarrowbtn).setOnClickListener(tutorialRight);
+
         return topLevelView;
     }
 
@@ -223,9 +405,6 @@ public class MainFragment extends Fragment {
 
         final AppCompatImageButton connectButton = view.findViewById(R.id.connectBtn);
         connectButton.setOnClickListener(b -> onSearchClicked());
-
-        final AppCompatImageButton tutorialBtn = view.findViewById(R.id.tutorialBtn);
-        tutorialBtn.setOnClickListener(b -> showTutorial());
     }
 
     @Override
@@ -526,32 +705,5 @@ public class MainFragment extends Fragment {
                 SensorViewModel.sensorIntent(SensorType.ROTATION_VECTOR), SensorViewModel.gestureIntent());
 
         startActivityForResult(intent, 1);
-    }
-
-    public void showTutorial() {
-    /*
-        ConstraintLayout tutorialLayout = (ConstraintLayout) view.findViewById(R.id.tutorialLayout);
-        ImageButton tutorialExitBtn;
-        ImageButton rightArrowBtn;
-        ImageButton leftArrowBtn;
-        TextView tutorialTxt;
-        TextView tutorialTitleTxt;
-        TextView tutorialNumTxt;
-        ImageView tutorialImg;
-
-        if(tutorialStep == 1) {
-
-        } else if(tutorialStep == 2) {
-
-        }
-        ImageButton databaseBtn = findViewById(R.id.databaseBtn);
-        private ConstraintLayout tutorialLayout;
-        private ImageButton tutorialExitBtn;
-        private ImageButton rightArrowBtn;
-        private ImageButton leftArrowBtn;
-        private TextView tutorialTxt;
-        private TextView tutorialTitleTxt;
-        private TextView tutorialNumTxt;
-        private ImageView tutorialImg;*/
     }
 }
