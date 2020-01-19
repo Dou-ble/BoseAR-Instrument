@@ -113,6 +113,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 View soundSelector = topLevelView.findViewById(R.id.soundSelector);
                 soundSelector.setVisibility(View.GONE);
+                enableButtons(topLevelView);
             }
         };
 
@@ -141,7 +142,7 @@ public class MainFragment extends Fragment {
                         break;
 
                 }
-
+                disableButtons(topLevelView);
             }
         };
 
@@ -555,5 +556,29 @@ public class MainFragment extends Fragment {
         private TextView tutorialTitleTxt;
         private TextView tutorialNumTxt;
         private ImageView tutorialImg;*/
+    }
+
+    public void disableButtons(View view) {
+
+        view.findViewById(R.id.tutorialBtn).setEnabled(false);
+        view.findViewById(R.id.connectBtn).setEnabled(false);
+        view.findViewById(R.id.calibrateBtn).setEnabled(false);
+        view.findViewById(R.id.upBtn).setEnabled(false);
+        view.findViewById(R.id.downBtn).setEnabled(false);
+        view.findViewById(R.id.leftBtn).setEnabled(false);
+        view.findViewById(R.id.rightBtn).setEnabled(false);
+
+    }
+
+    public void enableButtons(View view) {
+
+        view.findViewById(R.id.tutorialBtn).setEnabled(true);
+        view.findViewById(R.id.connectBtn).setEnabled(true);
+        view.findViewById(R.id.calibrateBtn).setEnabled(true);
+        view.findViewById(R.id.upBtn).setEnabled(true);
+        view.findViewById(R.id.downBtn).setEnabled(true);
+        view.findViewById(R.id.leftBtn).setEnabled(true);
+        view.findViewById(R.id.rightBtn).setEnabled(true);
+
     }
 }
