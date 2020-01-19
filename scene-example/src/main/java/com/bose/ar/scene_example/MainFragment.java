@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ import java.lang.Math;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -62,6 +64,17 @@ public class MainFragment extends Fragment {
     private TextView mValuesView;
     private TextView mAccuracyView;
     private TextView mDirectionView;
+
+    // Tutorial Objects
+    private int tutorialStep;
+    private ConstraintLayout tutorialLayout;
+    private ImageButton tutorialExitBtn;
+    private ImageButton rightArrowBtn;
+    private ImageButton leftArrowBtn;
+    private TextView tutorialTxt;
+    private TextView tutorialTitleTxt;
+    private TextView tutorialNumTxt;
+    private ImageView tutorialImg;
 
     private SensorViewModel mViewModel;
 
@@ -193,7 +206,6 @@ public class MainFragment extends Fragment {
         topLevelView.findViewById(R.id.el_cymbal_button).setOnClickListener(changeSound);
         topLevelView.findViewById(R.id.el_hat_button).setOnClickListener(changeSound);
 
-
         return topLevelView;
     }
 
@@ -204,11 +216,16 @@ public class MainFragment extends Fragment {
         mAccuracyView = view.findViewById(R.id.accuracyText);
         mDirectionView = view.findViewById(R.id.directionText);
 
+        tutorialStep = 1;
+
         final AppCompatImageButton calibrateButton = view.findViewById(R.id.calibrateBtn);
         calibrateButton.setOnClickListener(b -> onCalibrateClicked());
 
         final AppCompatImageButton connectButton = view.findViewById(R.id.connectBtn);
         connectButton.setOnClickListener(b -> onSearchClicked());
+
+        final AppCompatImageButton tutorialBtn = view.findViewById(R.id.tutorialBtn);
+        tutorialBtn.setOnClickListener(b -> showTutorial());
     }
 
     @Override
@@ -511,5 +528,32 @@ public class MainFragment extends Fragment {
                 SensorViewModel.sensorIntent(SensorType.ROTATION_VECTOR), SensorViewModel.gestureIntent());
 
         startActivityForResult(intent, 1);
+    }
+
+    public void showTutorial() {
+    /*
+        ConstraintLayout tutorialLayout = (ConstraintLayout) view.findViewById(R.id.tutorialLayout);
+        ImageButton tutorialExitBtn;
+        ImageButton rightArrowBtn;
+        ImageButton leftArrowBtn;
+        TextView tutorialTxt;
+        TextView tutorialTitleTxt;
+        TextView tutorialNumTxt;
+        ImageView tutorialImg;
+
+        if(tutorialStep == 1) {
+
+        } else if(tutorialStep == 2) {
+
+        }
+        ImageButton databaseBtn = findViewById(R.id.databaseBtn);
+        private ConstraintLayout tutorialLayout;
+        private ImageButton tutorialExitBtn;
+        private ImageButton rightArrowBtn;
+        private ImageButton leftArrowBtn;
+        private TextView tutorialTxt;
+        private TextView tutorialTitleTxt;
+        private TextView tutorialNumTxt;
+        private ImageView tutorialImg;*/
     }
 }

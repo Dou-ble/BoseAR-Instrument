@@ -36,7 +36,13 @@
     <string name="scan_error_feature_unsupported">Feature not supported</string>
     <string name="scan_error_application_registration_failed">Application registration failed</string>
     <string name="scan_error_unknown">Unknown error</string>
-
+    <string name="tutorial1">Connect your AR Compatible Bose Product to your mobile device.\n\nAR Compatile Bose Products include:\n\n\t\t• Bose Frames\n\t\t• Quiet Comfort 35 II Headphones
+\n\t\t• Bose 700 Headphones</string>
+    <string name="tutorial2">Calibrate your AR Compatible Bose Product by tapping the designate button or double tapping on the right of your device.\n\nAR Compatile Bose Products include:\n\n\t\t• Bose Frames\n\t\t• Quiet Comfort 35 II Headphones
+\n\t\t• Bose 700 Headphones</string>
+    <string name="tutorial3">Bob your head to the left, right, up, or down to play a selected sound.</string>
+    <string name="tutorial4">Tap on a direction button to map it to a sound.</string>
+    <string name="tutorial5">Made with Bose AR SDK.\n\nDeveloped by:\n\n\t\t• JP\n\n\t\t• Jonathan Dang\n\n\t\t• Myo Min Thant\n\n\t\t• Alex Tian\n\n\t\t• Joseph Yuen</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
