@@ -230,8 +230,8 @@ public class MainFragment extends Fragment {
         //mViewModel.accelerometerData()
         //        .observe(this, this::onAccelerometerData);
 
-        //mViewModel.gestureData()
-          //      .observe(this, this::onCalibrateClicked);
+        mViewModel.gestureData()
+                .observe(this, this::onCalibrateClicked);
 
         mViewModel.sensorAccuracy()
             .observe(this, this::updateAccuracy);
@@ -499,7 +499,6 @@ public class MainFragment extends Fragment {
         if (vel >= 1.0) { return (float) 1.0; }
         else if (vel <= 0.0) { return (float) 0.0; }
         else { return vel; }
-        ///sdfssgsgsds 
     }
     private void onCalibrateClicked() {
         mViewModel.resetInitialReading();
