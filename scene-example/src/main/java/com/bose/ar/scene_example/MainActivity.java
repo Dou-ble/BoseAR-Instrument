@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements ErrorDisplay {
     private Snackbar mSnackBar;
 
     Model m;
+    int soundboxSide; //which soundbox side has been selected.
 
     public static Intent intentForDevice(@NonNull final Context context,
                                          @NonNull final String deviceAddress,

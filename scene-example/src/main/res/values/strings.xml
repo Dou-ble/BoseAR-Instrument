@@ -43,4 +43,6 @@
     <string name="tutorial3">Bob your head to the left, right, up, or down to play a selected sound.</string>
     <string name="tutorial4">Tap on a direction button to map it to a sound.</string>
     <string name="tutorial5">Made with Bose AR SDK.\n\nDeveloped by:\n\n\t\t• JP\n\n\t\t• Jonathan Dang\n\n\t\t• Myo Min Thant\n\n\t\t• Alex Tian\n\n\t\t• Joseph Yuen</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
