@@ -205,7 +205,6 @@ public class MainFragment extends Fragment {
         topLevelView.findViewById(R.id.el_cymbal_button).setOnClickListener(changeSound);
         topLevelView.findViewById(R.id.el_hat_button).setOnClickListener(changeSound);
 
-
         return topLevelView;
     }
 
