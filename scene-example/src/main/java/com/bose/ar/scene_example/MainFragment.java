@@ -261,6 +261,7 @@ public class MainFragment extends Fragment {
         mViewModel.resetInitialReading();
         centerP = 0;
         centerY = 0;
+        this.startTime = System.currentTimeMillis();
     }
 
     @Override
